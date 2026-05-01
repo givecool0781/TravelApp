@@ -120,6 +120,19 @@ src/
 
 ---
 
+## ⚠️ React Native UI 顏色規則（Claude 必須遵守）
+
+**文字顏色問題：iOS 預設顏色太淡，必須明確設定。**
+
+- `TextInput` placeholder：永遠加 `placeholderTextColor="#94A3B8"`
+- 自訂元件的一般文字（非 placeholder）：使用 `#334155` 或 `#64748B`，不可用 `#94A3B8`（太淡看不清）
+- 選中狀態的文字：使用 `#2563EB`（藍色）或 `#0F172A`（深色）
+
+**發生過的事（2026-04）：**
+DurationPicker 的未選中項目用了 `#94A3B8`，用戶看不到文字，改為 `#64748B`。
+
+---
+
 ## ⚠️ 機密資料規則（Claude 必須遵守）
 
 **絕對不能把以下內容寫進程式碼或 commit 到 Git：**
