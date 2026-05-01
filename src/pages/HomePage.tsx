@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTripContext } from '../context/TripContext'
+import { useAuth } from '../context/AuthContext'
 import type { Trip } from '../types'
 import TripForm from '../components/TripForm'
 import ConfirmDialog from '../components/ConfirmDialog'
-import { MapPin, Calendar, ChevronRight, Plus, Pencil, Trash2 } from 'lucide-react'
+import { MapPin, Calendar, ChevronRight, Plus, Pencil, Trash2, LogOut } from 'lucide-react'
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)
@@ -19,6 +20,7 @@ function tripDuration(start: string, end: string) {
 export default function HomePage() {
   const navigate = useNavigate()
   const { trips, addTrip, updateTrip, deleteTrip } = useTripContext()
+  const { email, signOut } = useAuth()
 
   const [showAddForm, setShowAddForm] = useState(false)
   const [editingTrip, setEditingTrip] = useState<Trip | undefined>()
@@ -46,15 +48,24 @@ export default function HomePage() {
       <div className="bg-white border-b border-slate-200 px-6 py-5 flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">我的旅行</h1>
-          <p className="text-sm text-slate-500 mt-0.5">共 {trips.length} 個行程</p>
+          <p className="text-sm text-slate-500 mt-0.5">{email}</p>
         </div>
-        <button
-          onClick={() => setShowAddForm(true)}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
-        >
-          <Plus size={16} />
-          新增旅行
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setShowAddForm(true)}
+            className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
+          >
+            <Plus size={16} />
+            新增旅行
+          </button>
+          <button
+            onClick={signOut}
+            className="p-2.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+            title="登出"
+          >
+            <LogOut size={18} />
+          </button>
+        </div>
       </div>
 
       {/* Trip list */}
