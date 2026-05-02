@@ -122,6 +122,11 @@ export default function MapPage() {
       </div>
 
       <div className="flex-1 relative">
+        {!isLoaded && !loadError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-slate-50">
+            <p className="text-slate-400 text-sm">地圖載入中...</p>
+          </div>
+        )}
         {isLoaded ? (
           <GoogleMap
             mapContainerStyle={mapContainerStyle}

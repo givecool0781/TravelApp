@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { register, login } from '../api'
 import { useAuth } from '../context/AuthContext'
 
 export default function LoginPage() {
   const { signIn } = useAuth()
+  const navigate = useNavigate()
   const [mode, setMode] = useState<'login' | 'register'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,6 +21,7 @@ export default function LoginPage() {
         ? await login(email, password)
         : await register(email, password)
       await signIn(token)
+      navigate('/')
     } catch (err: any) {
       setError(err.message ?? '發生錯誤，請稍後再試')
     } finally {

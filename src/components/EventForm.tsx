@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
+import DurationSelect from './DurationSelect'
 import { Autocomplete, useJsApiLoader } from '@react-google-maps/api'
 import { X, MapPin, Utensils, Camera, Bus, Hotel, MoreHorizontal } from 'lucide-react'
 import type { TripEvent, EventCategory, Location } from '../types'
@@ -166,13 +167,9 @@ export default function EventForm({ existingEvent, onSave, onClose }: Props) {
             </div>
             <div>
               <label className="text-sm font-medium text-slate-700 block mb-1.5">預計時長</label>
-              <input
-                type="text"
+              <DurationSelect
                 value={form.duration}
-                onChange={(e) => handleChange('duration', e.target.value)}
-                placeholder="例：1.5 小時"
-                maxLength={40}
-                className="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 transition"
+                onChange={(v) => handleChange('duration', v)}
               />
             </div>
           </div>
