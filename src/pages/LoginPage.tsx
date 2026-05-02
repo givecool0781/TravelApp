@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { register, login } from '../api'
 import { useAuth } from '../context/AuthContext'
 
@@ -87,6 +88,14 @@ export default function LoginPage() {
             >
               {loading ? '處理中...' : mode === 'login' ? '登入' : '建立帳號'}
             </button>
+
+            {mode === 'login' && (
+              <div className="text-center">
+                <Link to="/forgot-password" className="text-sm text-slate-400 hover:text-slate-600">
+                  忘記密碼？
+                </Link>
+              </div>
+            )}
           </form>
         </div>
       </div>
