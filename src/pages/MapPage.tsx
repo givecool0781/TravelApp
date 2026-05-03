@@ -47,11 +47,22 @@ export default function MapPage() {
 
   useEffect(() => {
     if (!map || locations.length === 0) return
-    const bounds = new google.maps.LatLngBounds()
-    locations.forEach((e) => {
-      if (e.location) bounds.extend({ lat: e.location.lat, lng: e.location.lng })
-    })
-    map.fitBounds(bounds, 60)
+
+    if (locations.length === 1 && locations[0].location) {
+      // 單一地點：固定縮放，不用 fitBounds
+      map.setCenter({ lat: locations[0].location.lat, lng: locations[0].location.lng })
+      map.setZoom(14)
+    } else {
+      const bounds = new google.maps.LatLngBounds()
+      locations.forEach((e) => {
+        if (e.location) bounds.extend({ lat: e.location.lat, lng: e.location.lng })
+      })
+      map.fitBounds(bounds, 60)
+      // 防止 fitBounds 縮放太大
+      google.maps.event.addListenerOnce(map, 'idle', () => {
+        if ((map.getZoom() ?? 0) > 16) map.setZoom(16)
+      })
+    }
 
     if (focusId) {
       const found = locations.find((e) => e.id === focusId)
@@ -121,7 +132,7 @@ export default function MapPage() {
         </div>
       </div>
 
-      <div className="flex-1 relative">
+      <div className="flex-1 relative" style={{ minHeight: 0 }}>
         {!isLoaded && !loadError && (
           <div className="absolute inset-0 flex items-center justify-center bg-slate-50">
             <p className="text-slate-400 text-sm">地圖載入中...</p>
