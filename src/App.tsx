@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import LoginPage from './pages/LoginPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ExchangePage from './pages/ExchangePage'
 import HomePage from './pages/HomePage'
 import TripPage from './pages/TripPage'
 import MapPage from './pages/MapPage'
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/" element={<RequireAuth><HomePage /></RequireAuth>} />
         <Route path="/trip/:id" element={<RequireAuth><TripPage /></RequireAuth>} />
         <Route path="/trip/:id/map" element={<RequireAuth><MapPage /></RequireAuth>} />
+        <Route path="/exchange" element={<RequireAuth><ExchangePage /></RequireAuth>} />
       </Routes>
     </BrowserRouter>
   )

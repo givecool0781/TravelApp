@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import type { Trip } from '../types'
 import TripForm from '../components/TripForm'
 import ConfirmDialog from '../components/ConfirmDialog'
-import { MapPin, Calendar, ChevronRight, Plus, Pencil, Trash2, LogOut } from 'lucide-react'
+import { MapPin, Calendar, ChevronRight, Plus, Pencil, Trash2, LogOut, ArrowLeftRight } from 'lucide-react'
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr)
@@ -51,6 +51,13 @@ export default function HomePage() {
           <p className="text-sm text-slate-500 mt-0.5">{email}</p>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => navigate('/exchange')}
+            className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
+            title="匯率換算"
+          >
+            <ArrowLeftRight size={18} />
+          </button>
           <button
             onClick={() => setShowAddForm(true)}
             className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-700 transition-colors"
