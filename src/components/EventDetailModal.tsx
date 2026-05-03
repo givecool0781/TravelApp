@@ -38,6 +38,13 @@ export default function EventDetailModal({ event, tripId, onClose }: Props) {
     window.open(url, '_blank')
   }
 
+  function openTransit() {
+    if (!event.location) return
+    const { lat, lng } = event.location
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=transit`
+    window.open(url, '_blank')
+  }
+
   return (
     /* Backdrop */
     <div
@@ -133,20 +140,28 @@ export default function EventDetailModal({ event, tripId, onClose }: Props) {
 
           {/* Map buttons */}
           {event.location && (
-            <div className="pt-2 flex gap-3">
+            <div className="pt-2 space-y-2">
+              <div className="flex gap-2">
+                <button
+                  onClick={openGoogleMaps}
+                  className="flex-1 flex items-center justify-center gap-1.5 border border-slate-200 text-slate-700 text-sm font-medium py-2.5 rounded-xl hover:bg-slate-50 transition-colors"
+                >
+                  <MapPin size={14} />
+                  看地圖
+                </button>
+                <button
+                  onClick={openDirections}
+                  className="flex-1 flex items-center justify-center gap-1.5 bg-blue-600 text-white text-sm font-medium py-2.5 rounded-xl hover:bg-blue-700 transition-colors"
+                >
+                  <Navigation size={14} />
+                  導航前往
+                </button>
+              </div>
               <button
-                onClick={openGoogleMaps}
-                className="flex-1 flex items-center justify-center gap-2 border border-slate-200 text-slate-700 text-sm font-medium py-2.5 rounded-xl hover:bg-slate-50 transition-colors"
+                onClick={openTransit}
+                className="w-full flex items-center justify-center gap-2 border border-green-200 text-green-700 bg-green-50 text-sm font-medium py-2.5 rounded-xl hover:bg-green-100 transition-colors"
               >
-                <MapPin size={15} />
-                看地圖位置
-              </button>
-              <button
-                onClick={openDirections}
-                className="flex-1 flex items-center justify-center gap-2 bg-blue-600 text-white text-sm font-medium py-2.5 rounded-xl hover:bg-blue-700 transition-colors"
-              >
-                <Navigation size={15} />
-                導航前往
+                🚃 查轉乘路線
               </button>
             </div>
           )}
