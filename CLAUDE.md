@@ -64,9 +64,20 @@
 # 每次開新 PowerShell session 都要設定 PATH
 $env:PATH = "C:\Program Files\nodejs;" + $env:PATH
 cd "路徑\TravelApp"
-npm run dev
-# 開啟 http://localhost:5173
+npm run dev -- --host
+# 開啟 http://localhost:5173（手機用 http://192.168.0.159:5173）
 ```
+
+## ⚠️ Claude 開發規則：驗證前必須開 server
+
+**每次需要驗證功能、測試 UI、確認結果時，Claude 必須先主動幫用戶啟動 web dev server。**
+不要等用戶說「幫我開 server」，在要驗證之前就自動執行：
+```powershell
+$env:PATH = "C:\Program Files\nodejs;" + $env:PATH
+Set-Location "C:\Users\lf3ne\OneDrive\Desktop\Code\TravelApp"
+& "C:\Program Files\nodejs\npm.cmd" run dev -- --host 2>&1
+```
+Railway 後端不需要另外開（24 小時雲端運行）。
 
 ---
 
