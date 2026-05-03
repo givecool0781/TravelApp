@@ -53,10 +53,10 @@ export default function HomePage() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => navigate('/exchange')}
-            className="p-2.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors"
-            title="匯率換算"
+            className="flex items-center gap-1.5 px-3 py-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl text-sm font-medium transition-colors border border-slate-200"
           >
-            <ArrowLeftRight size={18} />
+            <ArrowLeftRight size={15} />
+            匯率換算
           </button>
           <button
             onClick={() => setShowAddForm(true)}
