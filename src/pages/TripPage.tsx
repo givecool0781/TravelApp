@@ -42,17 +42,18 @@ export default function TripPage() {
     )
   }
 
+  const tripId = trip.id
   const day = trip.days[activeDay]
 
   function handleExcelImport(events: { dayId: string; event: TripEvent }[]) {
-    events.forEach(({ dayId, event }) => addEvent(trip.id, dayId, event))
+    events.forEach(({ dayId, event }) => addEvent(tripId, dayId, event))
   }
 
   function handleSaveEvent(event: TripEvent) {
     if (editingEvent) {
-      updateEvent(trip.id, day.id, event)
+      updateEvent(tripId, day.id, event)
     } else {
-      addEvent(trip.id, day.id, event)
+      addEvent(tripId, day.id, event)
     }
     setEditingEvent(undefined)
     setShowAddEvent(false)
@@ -60,7 +61,7 @@ export default function TripPage() {
 
   function handleDeleteConfirmed() {
     if (deletingEvent) {
-      deleteEvent(trip.id, deletingEvent.dayId, deletingEvent.event.id)
+      deleteEvent(tripId, deletingEvent.dayId, deletingEvent.event.id)
       setDeletingEvent(undefined)
       if (viewingEvent?.id === deletingEvent.event.id) setViewingEvent(null)
     }

@@ -118,11 +118,11 @@ export async function parseExcelFile(file: File): Promise<ParseResult> {
 
   const sheetName = workbook.SheetNames[0]
   const sheet = workbook.Sheets[sheetName]
-  const raw = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, {
+  const raw = (XLSX.utils.sheet_to_json(sheet, {
     header: 1,
     defval: '',
     blankrows: false,
-  }) as unknown[][]
+  }) as unknown) as unknown[][]
 
   if (raw.length < 2) {
     return { rows: [], errors: [{ row: 0, message: '檔案內容為空或缺少標題列' }] }
